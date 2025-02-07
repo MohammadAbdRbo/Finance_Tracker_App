@@ -1,46 +1,39 @@
 const express = require("express");
-const pool = require("./config/db");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const pool = require("./config/db");  // استيراد الاتصال بقاعدة البيانات
 const app = express();
-const PORT = process.env.PORT || 5000;  
-app.use(express.json()); 
+const PORT = process.env.PORT || 5000;
 
-// check the conction on db 
+// تحميل المتغيرات البيئية من ملف .env
+dotenv.config();
+
+// إعدادات الوسطاء (middleware)
+app.use(cors());  // تمكين CORS
+app.use(express.json());  // لتحليل البيانات بتنسيق JSON في الطلبات
+
+// استيراد المسارات الخاصة بالمستخدم
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);  // توجيه المسارات إلى /api/users
+
+
+
+
+// التحقق من الاتصال بقاعدة البيانات عند بدء التطبيق
 (async () => {
-    try {
-      const res = await pool.query("SELECT NOW();");
-      console.log("✅ Connection successful, current time:", res.rows[0].now);
-    } catch (err) {
-      console.error("❌ Error connecting to the database: ", err.message);
-    }
-  })();
-
-// get users
-app.get("/users", async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM public."User"');
-    res.json(result.rows);
+    const res = await pool.query("SELECT NOW();");
+    console.log("✅ Connection successful, current time:", res.rows[0].now);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error("❌ Error connecting to the database: ", err.message);
   }
+})();
+app.use((err, req, res, next) => {
+  console.error("❌ Error occurred:", err); // طباعة الخطأ
+  res.status(500).send({ error: "Internal Server Error" });
 });
 
-
-// creat user 
-app.post("/users", async (req, res) => {
-  try {
-    const { full_name, email, password, monthly_income } = req.body;
-    const newUser = await pool.query(
-      'INSERT INTO public."User" (full_name, email, password, monthly_income) VALUES ($1, $2, $3, $4) RETURNING *',
-      [full_name, email, password, monthly_income]
-    );
-    res.json(newUser.rows[0]);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
+// بدء تشغيل الخادم على البورت المحدد
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
