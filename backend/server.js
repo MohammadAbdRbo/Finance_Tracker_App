@@ -13,7 +13,7 @@ app.use(cors());  // تمكين CORS
 app.use(express.json());  // لتحليل البيانات بتنسيق JSON في الطلبات
 
 // استيراد المسارات الخاصة بالمستخدم
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./routes/authRoutes");
 app.use("/api/users", userRoutes);  // توجيه المسارات إلى /api/users
 
 
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: "Internal Server Error" });
 });
 
-// بدء تشغيل الخادم على البورت المحدد
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });

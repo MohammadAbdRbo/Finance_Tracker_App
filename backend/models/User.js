@@ -32,10 +32,30 @@ const getUserByEmail = async (email) => {
 };
 
 
+const authenticateToken = async (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Unauthorized" });
+  
+    const result = await pool.query("SELECT * FROM blacklisted_tokens WHERE token = $1", [token]);
+    if (result.rows.length > 0) {
+      return res.status(401).json({ error: "Token is invalid" });
+    }
+  
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) return res.status(403).json({ error: "Token is not valid" });
+      req.user = user;
+      next();
+    });
+  };
+  
+
+
+
 
 
 module.exports = {
     createUser,
-    getUserByEmail
+    getUserByEmail,
+    authenticateToken
     
 };
