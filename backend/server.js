@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const pool = require("./config/db");  // استيراد الاتصال بقاعدة البيانات
+const pool = require("./config/db"); 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
