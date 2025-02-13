@@ -1,6 +1,5 @@
 const pool = require("../config/db");  // استيراد الاتصال بقاعدة البيانات
 const bcrypt = require("bcrypt");
-// وظيفة لإضافة مستخدم جديد
 const createUser = async (full_name, email, hashedPassword) => {
     try {
         // 🔍 طباعة البيانات للتحقق
@@ -48,10 +47,6 @@ const authenticateToken = async (req, res, next) => {
     });
   };
   
-
-
-
-
 
 module.exports = {
     createUser,

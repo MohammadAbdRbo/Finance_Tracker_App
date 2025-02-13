@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-4 mt-5">
+    <footer className="bg-dark text-light py-4 mt-5" id = "contact-us">
       <div className="container text-center">
         <div className="row">
-          {/* About Us */}
+          
           <div className="col-md-4 mb-3">
             <h5>About Us</h5>
             <p>We provide the best solutions to manage your finances easily.</p>
           </div>
 
-          {/* Quick Links */}
+          
           <div className="col-md-4 mb-3">
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
@@ -33,7 +33,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
+          
           <div className="col-md-4 mb-3">
             <h5>Follow Us</h5>
             <a href="https://facebook.com" className="text-light me-3">
@@ -48,8 +48,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
-        <p className="mt-4">© {new Date().getFullYear()} MyApp. All rights reserved.</p>
+        
+        <p className="mt-4">© {new Date().getFullYear()} FinAi. All rights reserved.</p>
       </div>
     </footer>
   );

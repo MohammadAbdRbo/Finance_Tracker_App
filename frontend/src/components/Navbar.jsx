@@ -4,11 +4,14 @@ import { useState } from "react";
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // إغلاق القائمة عند النقر على رابط
+  const closeNavbar = () => setIsExpanded(false);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
         {/* Logo */}
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/" onClick={closeNavbar}>
           FinAi
         </Link>
 
@@ -26,31 +29,31 @@ const Navbar = () => {
           {/* Left-aligned links */}
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className="nav-link" href="#about-us" onClick={closeNavbar}>
                 About Us
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/project">
+              <Link className="nav-link" href="#our-project" onClick={closeNavbar}>
                 Our Project
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/contact">
+              <a className="nav-link" href="#contact-us" onClick={closeNavbar}>
                 Contact Us
-              </Link>
+              </a>
             </li>
           </ul>
 
           {/* Right-aligned login/signup buttons */}
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="btn btn-outline-light rounded-pill mx-2" to="/signin">
+              <Link className="btn btn-outline-light rounded-pill mx-2" to="/signin" onClick={closeNavbar}>
                 Sign In
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="btn btn-light text-primary rounded-pill mx-2" to="/register">
+              <Link className="btn btn-light text-primary rounded-pill mx-2" to="/register" onClick={closeNavbar}>
                 Sign Up
               </Link>
             </li>
