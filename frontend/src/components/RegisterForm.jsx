@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -7,15 +8,36 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-    console.log({ username, email, password });
-    // Add sign-up logic here
+  
+    try {
+      
+      const response = await axios.post('http://localhost:5000/api/users/register', {
+        full_name: username,  
+        email,
+        password,
+      });
+  
+      
+      alert(response.data.message);
+    } catch (error) {
+      
+      if (error.response) {
+        setError(error.response.data.message); 
+      } else {
+        setError("An error occurred, please try again."); 
+      }
+    }
   };
+  
+
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light">

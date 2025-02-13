@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ email, password, rememberMe });
-    // Add authentication logic here
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/login', {
+        email,
+        password,
+      });
+
+      alert(response.data.message); 
+    } catch (error) {
+      
+      if (error.response) {
+        setError(error.response.data.message);  
+      } else {
+        setError("An error occurred, please try again.");  
+      }
+    }
   };
+
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light">
