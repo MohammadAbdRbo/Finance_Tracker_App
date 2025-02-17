@@ -48,7 +48,7 @@ const Navbar = () => {
           {/* Right-aligned login/signup buttons */}
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="btn btn-outline-light rounded-pill mx-2" to="/signin" onClick={closeNavbar}>
+              <Link className="btn btn-outline-light rounded-pill mx-2" to="/login" onClick={closeNavbar}>
                 Sign In
               </Link>
             </li>

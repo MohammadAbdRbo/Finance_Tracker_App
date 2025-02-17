@@ -11,6 +11,10 @@ dotenv.config();
 // إعدادات الوسطاء (middleware)
 app.use(cors());  // تمكين CORS
 app.use(express.json());  // لتحليل البيانات بتنسيق JSON في الطلبات
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 
 // استيراد المسارات الخاصة بالمستخدم
 const userRoutes = require("./routes/authRoutes");
@@ -36,4 +40,19 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("❌ Uncaught Exception:", err);
+  
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("❌ Unhandled Rejection:", reason);
+  
+});
+
+process.on("rejectionHandled", (reason) => {
+  console.error("❌ Rejection Handled:", reason);
+  
 });

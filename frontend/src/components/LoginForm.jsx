@@ -1,36 +1,54 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // إضافة useNavigate هنا
 import axios from "axios";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false); // إضافة حالة rememberMe
+  const [error, setError] = useState(""); // لإظهار الرسائل عند حدوث خطأ
+  const navigate = useNavigate(); // إضافة useNavigate هنا
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError("");
+  
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post("http://localhost:5000/api/users/login", {
         email,
         password,
       });
+    
+      const token = response.data.user.token;
 
-      alert(response.data.message); 
-    } catch (error) {
-      
-      if (error.response) {
-        setError(error.response.data.message);  
+      if (token) {
+        if (rememberMe) {
+          localStorage.setItem("token", token);
+          console.log("Token saved to localStorage:", token);
+        } else {
+          sessionStorage.setItem("token", token);
+          console.log("Token saved to sessionStorage:", token);
+        }
+        
+        navigate("/dashboard"); // التوجيه للوحة التحكم
       } else {
-        setError("An error occurred, please try again.");  
+        console.error("No token received from server!");
+      }
+      
+      
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
+      } else {
+        setError("An error occurred, please try again.");
       }
     }
+    
   };
-
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light">
-      <Link to="/" className="position-absolute top-0 start-0 m-3 btn btn-primary">
+      <Link  className="position-absolute top-0 start-0 m-3 btn btn-primary">
         Home
       </Link>
       <div className="bg-white p-4 rounded shadow w-50 text-center">
