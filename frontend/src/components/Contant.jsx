@@ -19,16 +19,16 @@ const Content = () => {
 
     return (
         <div className="container-fluid p-4">
-            <h2>Welcome to your Dashboard!</h2>
+            <h2>Welcome </h2>
             <Row className="mt-4">
                 <Col md={4}>
                     <Card className="shadow-sm">
                         <Card.Body>
                             <Card.Title>Total Income</Card.Title>
-                            <Card.Text>
-                                $10,000
+                            <Card.Text style={{ color: 'lightgreen',fontSize:"25px" }}>
+                                ₪10,000
                             </Card.Text>
-                            <Button variant="primary">View Details</Button>
+                            
                         </Card.Body>
                     </Card>
                 </Col>
@@ -36,21 +36,22 @@ const Content = () => {
                     <Card className="shadow-sm">
                         <Card.Body>
                             <Card.Title>Total Expenses</Card.Title>
-                            <Card.Text>
-                                $4,500
+                            <Card.Text style={{ color: 'red',fontSize:"25px" }}>
+                              ₪4,500
                             </Card.Text>
-                            <Button variant="primary">View Details</Button>
+                            
                         </Card.Body>
                     </Card>
                 </Col>
+                
                 <Col md={4}>
                     <Card className="shadow-sm">
                         <Card.Body>
                             <Card.Title>Monthly Savings</Card.Title>
-                            <Card.Text>
-                                $2,000
+                            <Card.Text style={{ color: 'lightblue',fontSize:"25px" }}>
+                                ₪2,000
                             </Card.Text>
-                            <Button variant="primary">View Details</Button>
+                            
                         </Card.Body>
                     </Card>
                 </Col>
