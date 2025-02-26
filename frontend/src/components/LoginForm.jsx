@@ -5,7 +5,7 @@ import axios from "axios";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false); // State for "Remember Me" checkbox
+  const [rememberMe, setRememberMe] = useState(true); // State for "Remember Me" checkbox
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
